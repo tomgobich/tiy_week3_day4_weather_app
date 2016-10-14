@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	
+	<!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+	
+	<!-- Bootstrap Styles -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Site Styles -->
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,200i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container-fluid weather-fluid">
+		<div class="container weather">
+			<div class="row">
+				<div class="col-xs-12 forecast-5-day">
+					<div class="forecast-content">
+						<div class="forecast-title">
+							<h2 class="title">
+								Weekly Forecast for 
+								<form id="locationForm">
+									<input id="locationInput" type="text" name="location">
+								</form>
+							</h2>
+						</div>
+						<div id="forecastData">
+							<!-- 
+							Content to dynamically insert
+
+							<div class="forecast-day">
+								<h3 class="day">FRIDAY</h3>
+								<p class="condition">Partly Cloudy</p>
+								<img class="forecast-icon" src="http://openweathermap.org/img/w/10d.png" alt="condition...">
+								<p class="temp low">44&deg;</p>
+								<p class="temp high">66&deg;</p>
+							</div> 
+							
+							-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- JQuery -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Boostrap -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<!-- Main JavaScript File -->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
