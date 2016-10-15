@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="305px" height="487px" viewBox="0 0 305 487" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>upload</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="upload" fill="#DA4453">
+            <path d="M301.031,143 L162.031,4 C159.531,1.5 156.031,0 152.531,0 C148.931,0 145.531,1.4 143.031,4 L4.031,143 C-1.269,148.3 -1.269,156.8 4.031,162.1 C9.331,167.4 17.831,167.4 23.131,162.1 L139.131,46.1 L139.131,473.5 C139.131,481 145.131,487 152.631,487 C160.131,487 166.131,481 166.131,473.5 L166.131,46.1 L282.131,162.1 C284.731,164.7 288.231,166.1 291.631,166.1 C295.031,166.1 298.531,164.8 301.131,162.1 C306.231,156.8 306.231,148.2 301.031,143 L301.031,143 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

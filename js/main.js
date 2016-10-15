@@ -180,8 +180,8 @@ $(document).ready(function()
 					</div>
 					<img class="forecast-icon" src="${day.getIconImageURL()}" alt="${day.condition}">
 					<div class="temps">
-						<p class="temp low">${day.tempLow}&deg;</p>
-						<p class="temp high">${day.tempHigh}&deg;</p>
+						<p class="temp low"><img src="images/low.svg" alt="Low Temperature">${day.tempLow}&deg;</p>
+						<p class="temp high"><img src="images/high.svg" alt="High Temperature">${day.tempHigh}&deg;</p>
 					</div>
 				</div> 
 			`;

@@ -86,12 +86,14 @@ button {
 // --------------------------------------------------
 .forecast-unit {
 	color: $color-dark-white;
-	background-color: lighten($color-background, 5%);
+	background-color: rgba($color-background, .2);
 	background-image:linear-gradient(to right, $color-low 50%, transparent 50%);
 	background-size: 105%;
 	-webkit-transition: all 1s ease;
 	   -moz-transition: all 1s ease;
 		    transition: all 1s ease;
+	border: 2px solid $color-dark-white;
+	border-top: none;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -231,6 +233,12 @@ button {
 						background-color: lighten($color-low, 33%);
 						color: $color-low;
 						float: left;
+					}
+
+					img {
+						max-width: 5px;
+						margin-right: 5px;
+						margin-top: -3px;
 					}
 				}
 

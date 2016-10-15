@@ -56,12 +56,14 @@ button {
 
 .forecast-unit {
   color: #d3dce9;
-  background-color: #3f3d40;
+  background-color: rgba(50, 49, 51, 0.2);
   background-image: linear-gradient(to right, #5D9CEC 50%, transparent 50%);
   background-size: 105%;
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   transition: all 1s ease;
+  border: 2px solid #d3dce9;
+  border-top: none;
   position: absolute;
   top: 0;
   right: 0; }
@@ -155,6 +157,10 @@ button {
             background-color: #f4f8fe;
             color: #5D9CEC;
             float: left; }
+          .forecast .forecast-week .forecast-day .temps .temp img {
+            max-width: 5px;
+            margin-right: 5px;
+            margin-top: -3px; }
         .forecast .forecast-week .forecast-day .temps:after {
           content: "";
           display: table;
@@ -192,7 +198,7 @@ button {
       position: absolute;
       left: 15px; }
     .forecast .forecast-week .forecast-day .temps {
-      width: 65px;
+      width: 100px;
       text-align: center;
       float: right;
       box-shadow: none; } }
