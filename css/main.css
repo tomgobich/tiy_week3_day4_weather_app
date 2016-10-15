@@ -7,7 +7,8 @@ html, body {
 
 body {
   font-family: 'Titillium Web', sans-serif;
-  background-color: #323133; }
+  background-color: #323133;
+  color: #333; }
 
 p,
 h1,
@@ -80,18 +81,27 @@ button {
         display: block;
         padding: 20px 0 30px;
         margin: 0 auto; }
-      .forecast-5-day .forecast-content .forecast-day .temp {
-        width: 50%;
-        font-weight: 600;
-        padding: 10px 0; }
-        .forecast-5-day .forecast-content .forecast-day .temp.high {
-          border: 2px solid rgba(218, 68, 83, 0.2);
-          border-left: 1px solid rgba(245, 247, 250, 0.1);
-          float: right; }
-        .forecast-5-day .forecast-content .forecast-day .temp.low {
-          border: 2px solid rgba(93, 156, 236, 0.2);
-          border-right: 1px solid rgba(245, 247, 250, 0.1);
-          float: left; }
+      .forecast-5-day .forecast-content .forecast-day .temps {
+        padding: 2px;
+        background-color: #d3dce9;
+        box-shadow: 0px 0px 3px rgba(50, 49, 51, 0.1);
+        background-image: linear-gradient(to right, rgba(93, 156, 236, 0.3), rgba(218, 68, 83, 0.3)); }
+        .forecast-5-day .forecast-content .forecast-day .temps .temp {
+          width: 50%;
+          background-color: #F5F7FA;
+          font-weight: 600;
+          padding: 10px 0;
+          margin: 0; }
+          .forecast-5-day .forecast-content .forecast-day .temps .temp.high {
+            color: #DA4453;
+            float: right; }
+          .forecast-5-day .forecast-content .forecast-day .temps .temp.low {
+            color: #5D9CEC;
+            float: left; }
+        .forecast-5-day .forecast-content .forecast-day .temps:after {
+          content: "";
+          display: table;
+          clear: both; }
 
 @media screen and (max-width: 992px) {
   .forecast-5-day {
@@ -127,17 +137,5 @@ button {
     .forecast-5-day .forecast-content .forecast-day .temps {
       width: 65px;
       text-align: center;
-      float: right; }
-    .forecast-5-day .forecast-content .forecast-day .temp {
-      width: 50%;
-      font-weight: 600;
-      padding: 10px 0;
-      margin: 0; }
-      .forecast-5-day .forecast-content .forecast-day .temp.high {
-        border: 2px solid rgba(218, 68, 83, 0.2);
-        border-left: 1px solid rgba(245, 247, 250, 0.1);
-        float: right; }
-      .forecast-5-day .forecast-content .forecast-day .temp.low {
-        border: 2px solid rgba(93, 156, 236, 0.2);
-        border-right: 1px solid rgba(245, 247, 250, 0.1);
-        float: left; } }
+      float: right;
+      box-shadow: none; } }

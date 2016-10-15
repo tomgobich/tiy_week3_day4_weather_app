@@ -1,7 +1,13 @@
 $(document).ready(function()
 {
-	var fiveDayForecast = [];
+	// Weekly forecast array
+	var weeklyForecast = [];
 
+
+
+	// ------------------------------------------------------------
+	// Forecast object constructor
+	// ------------------------------------------------------------
 	function Forecast(dayText, tempHigh, tempLow, condition, iconCode)
 	{
 		this.day = dayText;
@@ -10,6 +16,9 @@ $(document).ready(function()
 		this.condition = condition;
 		this.iconCode = iconCode;
 
+		// ------------------------------------------------------------
+		// Prepares link to icon file
+		// ------------------------------------------------------------
 		this.getIconImageURL = function()
 		{
 			var self = this;
@@ -33,41 +42,125 @@ $(document).ready(function()
 
 
 
+	// Event listener for location input form
 	$('#locationForm').on('submit', function(e)
 	{
+		// Prevent form from submitting
 		e.preventDefault();
 
+		// Get forecast data from openweathermap API using location from user input
 		getForecastFromAPI($('#locationInput').val());
 	});
 
 
 
+	// ------------------------------------------------------------
+	// Makes AJAX call to openweathermap API
+	// ------------------------------------------------------------
 	function getForecastFromAPI(location)
 	{
 		var $locationInput = $('#locationInput');
 
-		$locationInput.val(location).focus();
+		// Set focus to location input
+		$locationInput.focus();
 
+		// Is the location undefined or empty?
 		if(location === undefined || location.trim() === "")
 		{
+			// Use Cincinnati as default 
 			location = 'Cincinnati';
 		}
 
+		// AJAX call to openweatherdata api
 		$.ajax({
 			url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=imperial&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
 			method: 'GET',
-			success: function(data) { prepareFiveDayForecast(data); },
+			success: function(data) { prepareWeeklyForecast(data); },
 			error: function(err) { console.log("Error! Message: " + e.responseText); },
 			complete: function() { console.log("All done!"); }
 		})
 	}
 
 
+
+	// Call API request on initial load run-through
 	getForecastFromAPI();
 
 
+
+	// ------------------------------------------------------------
+	// Strips needed data from API data and puts it in an object
+	// ------------------------------------------------------------
+	function prepareWeeklyForecast(data)
+	{
+		// Clear out weekly forecast array
+		weeklyForecast = [];
+
+		// Loop through forecast days
+		data.list.forEach(function(day)
+		{
+			var date 		= new Date(day.dt * 1000),
+				dayText 	= getDayText(date.getDay()),
+				tempHigh 	= day.temp.max,
+				tempLow 	= day.temp.min,
+				condition 	= day.weather[0].description,
+				iconCode 	= day.weather[0].icon;
+
+			// Create new Forecast object and load with forecast data
+			var forecastDay = new Forecast(dayText, tempHigh, tempLow, condition, iconCode);
+
+			// Push into weekly forecast array
+			weeklyForecast.push(forecastDay);
+		});
+
+		// Prepare HTML and display data
+		displayWeeklyForecast();
+	}
+
+
+
+	// ------------------------------------------------------------
+	// Sets Forecast Day's HTML and appends it to parent element
+	// ------------------------------------------------------------
+	function displayWeeklyForecast()
+	{
+		var $forecastData = $('#forecastData');
+
+		// Empty HTML element
+		$forecastData.empty();
+
+		// Loop through weekly forecast array
+		weeklyForecast.forEach(function(day)
+		{
+			// Load data into HTML block
+			var forecastBlock = 
+			`
+				<div class="forecast-day">
+					<div class="details">
+						<h3 class="day">${day.day}</h3>
+						<p class="condition">${day.condition}</p>
+					</div>
+					<img class="forecast-icon" src="${day.getIconImageURL()}" alt="${day.condition}">
+					<div class="temps">
+						<p class="temp low">${day.tempLow}&deg;</p>
+						<p class="temp high">${day.tempHigh}&deg;</p>
+					</div>
+				</div> 
+			`;
+
+			// Append HTML block to DOM
+			$forecastData.append(forecastBlock);
+		});
+	}
+
+
+
+	// ------------------------------------------------------------
+	// Takes in icon code from API and sets different images to code
+	// ------------------------------------------------------------
 	function getIconFilename(self)
 	{
+		// Match icon code then return appropriate image name.type
 		switch(self.iconCode)
 			{
 				case '01d':
@@ -114,57 +207,6 @@ $(document).ready(function()
 					return self.iconCode;
 					break;
 			}
-	}
-
-
-	function prepareFiveDayForecast(data)
-	{
-		fiveDayForecast = [];
-
-		data.list.forEach(function(day)
-		{
-			var date 		= new Date(day.dt * 1000),
-				dayText 	= getDayText(date.getDay()),
-				tempHigh 	= day.temp.max,
-				tempLow 	= day.temp.min,
-				condition 	= day.weather[0].description,
-				iconCode 	= day.weather[0].icon;
-
-			var forecastDay = new Forecast(dayText, tempHigh, tempLow, condition, iconCode);
-
-			fiveDayForecast.push(forecastDay);
-		});
-
-		displayFiveDayForecast();
-	}
-
-
-
-	function displayFiveDayForecast()
-	{
-		var $forecastData = $('#forecastData');
-
-		$forecastData.empty();
-
-		fiveDayForecast.forEach(function(day)
-		{
-			var forecastBlock = 
-			`
-				<div class="forecast-day">
-					<div class="details">
-						<h3 class="day">${day.day}</h3>
-						<p class="condition">${day.condition}</p>
-					</div>
-					<img class="forecast-icon" src="${day.getIconImageURL()}" alt="${day.condition}">
-					<div class="temps">
-						<p class="temp low">${day.tempLow}&deg;</p>
-						<p class="temp high">${day.tempHigh}&deg;</p>
-					</div>
-				</div> 
-			`;
-
-			$forecastData.append(forecastBlock);
-		});
 	}
 
 
