@@ -4,6 +4,11 @@ $color-dark-white: darken($color-white, 10);
 $color-high: #DA4453;
 $color-low: #5D9CEC;
 
+
+
+// --------------------------------------------------
+// Mixins
+// --------------------------------------------------
 @mixin clearAfter() {
 	content:"";
     display:table;
@@ -13,6 +18,8 @@ $color-low: #5D9CEC;
 @mixin boxShadow() {
 	box-shadow: 1px 1px 3px rgba($color-background, .2);
 }
+
+
 
 // --------------------------------------------------
 // Global Styles
@@ -30,6 +37,28 @@ body {
 	font-family: 'Titillium Web', sans-serif;
     background-color: $color-background;
     color: #333;
+    background: linear-gradient(to left, #6a50a7, #3bafda, #37bc9b);
+	background-size: 600% 600%;
+	-webkit-animation: bgBlend 30s ease infinite;
+	   -moz-animation: bgBlend 30s ease infinite;
+		    animation: bgBlend 30s ease infinite;
+}
+
+// Body Animation
+@-webkit-keyframes bgBlend {
+      0% { background-position: 0% 50% }
+     50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+}
+@-moz-keyframes bgBlend {
+      0% { background-position:   0% 50% }
+     50% { background-position: 100% 50% }
+    100% { background-position:   0% 50% }
+}
+@keyframes bgBlend { 
+      0% { background-position:   0% 50% }
+     50% { background-position: 100% 50% }
+    100% { background-position:   0% 50% }
 }
 
 p,
@@ -52,22 +81,64 @@ button {
 
 
 
+// --------------------------------------------------
+// Forecast Unit
+// --------------------------------------------------
+.forecast-unit {
+	color: $color-dark-white;
+	background-color: lighten($color-background, 5%);
+	background-image:linear-gradient(to right, $color-low 50%, transparent 50%);
+	background-size: 105%;
+	-webkit-transition: all 1s ease;
+	   -moz-transition: all 1s ease;
+		    transition: all 1s ease;
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	&.metric {
+		background-position: -52%;
+		background-size: 200%;
+		-webkit-transition: all 1s ease;
+		   -moz-transition: all 1s ease;
+			    transition: all 1s ease;
+	}
+
+	.unit {
+		padding: 6px 8px;
+		float: left;
+
+		&:hover {
+			cursor: pointer;
+		}
+	
+		.type {
+			font-size: 0.8em;
+			margin: 0;
+		}
+	}
+}
+
+
+
+// --------------------------------------------------
+// Forecast Title
+// --------------------------------------------------
 .forecast-title {
 	width: 100%;
 	color: $color-white;
-	// padding: 10px;
-	margin: 10px -15px 0;
+	margin: 20px -15px 0;
 
 	.title {
-		font-size: 3.2em;
+		font-size: 1.6em;
 		text-align: left;
 		text-transform: uppercase;
-		word-spacing: 100vw;
 		margin: 0;
 
 		form { 
 			width: calc(100% + 30px);
-			display: inline-block;
+			font-size: 2em;
+			display: block;
 		}
 
 		#locationInput {
@@ -85,7 +156,10 @@ button {
 
 
 
-.forecast-5-day {
+// --------------------------------------------------
+// Weekly Forecast
+// --------------------------------------------------
+.forecast {
 	background-color: rgba($color-white, .4);
 	text-align: center;
 	padding: 20px;
@@ -93,7 +167,7 @@ button {
 	@include boxShadow();
 	margin-top: 20px;
 
-	.forecast-content {
+	.forecast-week {
 		@include boxShadow();
 
 		.forecast-day {
@@ -130,14 +204,14 @@ button {
 			}
 
 			.temps {
-				padding: 2px;
+				padding: 0 2px;
 				background-color: $color-dark-white;
 				box-shadow: 0px 0px 3px rgba($color-background, .1);
 				background-image:
 					linear-gradient(
 						to right,
-						rgba($color-low, .3),
-						rgba($color-high, .3)
+						rgba($color-low, .4) 50%,
+						rgba($color-high, .4) 50%
 					);
 
 				.temp {
@@ -148,11 +222,13 @@ button {
 					margin: 0;
 
 					&.high {
+						background-color: lighten($color-high, 43%);
 						color: $color-high;
 						float: right;
 					}
 
 					&.low {
+						background-color: lighten($color-low, 33%);
 						color: $color-low;
 						float: left;
 					}
@@ -168,68 +244,9 @@ button {
 	}
 }
 
-@media screen and (max-width: 992px) {
 
-	.forecast-5-day {
-		font-size: 0.8em;
-		padding: 10px;
-	}
 
-	.forecast-title {
-
-		.title {
-			font-size: 1.6em;
-		}
-	}
-
-}
-
-@media screen and (max-width: 700px) {
-
-	.forecast-5-day {
-
-		.forecast-content {
-
-			.forecast-day {
-				width: 100%;
-				text-align: left;
-				border-right: none;
-				border-bottom: 1px solid rgba($color-dark-white, .4);
-				position: relative;
-
-				&:last-child {
-					border-bottom: none;
-				}
-
-				.details {
-					width: 30%;
-					float: left;
-					position: absolute;
-					left: 70px;
-
-					.condition {
-						padding: 0;
-						margin: 0;
-					}
-				}
-				
-				.forecast-icon {
-					max-width: 30px;
-					float: left;
-					display: inline-block;
-					padding: 4px 0 0 0;
-					position: absolute;
-					left: 15px;
-				}
-
-				.temps {
-					width: 65px;
-					text-align: center;
-					float: right;
-					box-shadow: none;
-				}
-			}
-		}
-	}
-
-}
+// --------------------------------------------------
+// Responsive Styles
+// --------------------------------------------------
+@import '_responsive.scss';

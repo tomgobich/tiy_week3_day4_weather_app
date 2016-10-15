@@ -2,6 +2,14 @@ $(document).ready(function()
 {
 	// Weekly forecast array
 	var weeklyForecast = [];
+	var forecastUnit = JSON.parse(localStorage.getItem('unit'));
+
+
+
+	// DOM selectors
+	var $locationInput 	= $('#locationInput');
+	var $forecastData 	= $('#forecastData');
+	var $forecastUnit 	= $('#forecastUnit');
 
 
 
@@ -42,6 +50,14 @@ $(document).ready(function()
 
 
 
+	// ------------------------------------------------------------
+	// ------------------------------------------------------------
+	// 
+	// Event Listeners
+	// 
+	// ------------------------------------------------------------
+	// ------------------------------------------------------------
+
 	// Event listener for location input form
 	$('#locationForm').on('submit', function(e)
 	{
@@ -49,8 +65,29 @@ $(document).ready(function()
 		e.preventDefault();
 
 		// Get forecast data from openweathermap API using location from user input
-		getForecastFromAPI($('#locationInput').val());
+		getForecastFromAPI($locationInput.val());
 	});
+
+
+	// Event listener for forecast unit toggle
+	$('#forecastUnit').on('click', function()
+	{
+		// Toggle forecast unit
+		toggleForecastUnit();
+	});
+
+
+
+	// ------------------------------------------------------------
+	// ------------------------------------------------------------
+	// 
+	// Getting & Displaying Forecast
+	// 
+	// ------------------------------------------------------------
+	// ------------------------------------------------------------
+
+	// Call API request on initial load run-through
+	getForecastFromAPI();
 
 
 
@@ -59,8 +96,6 @@ $(document).ready(function()
 	// ------------------------------------------------------------
 	function getForecastFromAPI(location)
 	{
-		var $locationInput = $('#locationInput');
-
 		// Set focus to location input
 		$locationInput.focus();
 
@@ -71,20 +106,22 @@ $(document).ready(function()
 			location = 'Cincinnati';
 		}
 
+		if(forecastUnit === undefined)
+		{
+			forecastUnit = "imperial";
+		}
+
+		setForecastUnit();
+
 		// AJAX call to openweatherdata api
 		$.ajax({
-			url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=imperial&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
+			url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=${forecastUnit}&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
 			method: 'GET',
 			success: function(data) { prepareWeeklyForecast(data); },
 			error: function(err) { console.log("Error! Message: " + e.responseText); },
 			complete: function() { console.log("All done!"); }
 		})
 	}
-
-
-
-	// Call API request on initial load run-through
-	getForecastFromAPI();
 
 
 
@@ -95,6 +132,9 @@ $(document).ready(function()
 	{
 		// Clear out weekly forecast array
 		weeklyForecast = [];
+
+		// Display the city openweatherdata matched with user's input and add the country to the end
+		$('#locationInput').val(data.city.name + ", " + data.city.country);
 
 		// Loop through forecast days
 		data.list.forEach(function(day)
@@ -124,8 +164,6 @@ $(document).ready(function()
 	// ------------------------------------------------------------
 	function displayWeeklyForecast()
 	{
-		var $forecastData = $('#forecastData');
-
 		// Empty HTML element
 		$forecastData.empty();
 
@@ -154,6 +192,93 @@ $(document).ready(function()
 	}
 
 
+
+	// ------------------------------------------------------------
+	// ------------------------------------------------------------
+	//
+	// Toggle Unit of Temperature
+	//
+	// ------------------------------------------------------------
+	// ------------------------------------------------------------
+
+	// ------------------------------------------------------------
+	// Toggle the unit of measurement for temperature
+	// ------------------------------------------------------------
+	function toggleForecastUnit()
+	{
+
+		console.log('before: ' + forecastUnit);
+		// Was unit of measurement imperial?
+		if(forecastUnit === "imperial")
+		{
+			// Yes, toggle over to metric
+			forecastUnit = "metric";
+		}
+		else
+		{
+			// No, toggle over to imperial
+			forecastUnit = "imperial";
+		}
+		console.log('after: ' + forecastUnit);
+
+		// Save new unit in local storage
+		localStorage.setItem('unit', JSON.stringify(forecastUnit));
+
+		setForecastUnit();
+
+		calculateUnits();
+
+		displayWeeklyForecast();
+	}
+
+
+
+	// ------------------------------------------------------------
+	// Toggle the unit of measurement for temperature
+	// ------------------------------------------------------------
+	function setForecastUnit()
+	{
+		if(forecastUnit === "metric")
+		{
+			$forecastUnit.addClass('metric');
+		}
+		else
+		{
+			$forecastUnit.removeClass('metric');
+		}
+	}
+
+
+
+	function calculateUnits()
+	{
+		if(forecastUnit === "metric")
+		{
+			weeklyForecast.forEach(function(day)
+			{
+				day.tempHigh = Math.round((day.tempHigh - 32) / 1.8);
+				day.tempLow  = Math.round((day.tempLow - 32) / 1.8);
+			});
+		}
+		else
+		{
+			weeklyForecast.forEach(function(day)
+			{
+				day.tempHigh = Math.round((day.tempHigh * 1.8) + 32);
+				day.tempLow  = Math.round((day.tempLow * 1.8) + 32);
+			});
+		}
+	}
+
+
+
+	// ------------------------------------------------------------
+	// ------------------------------------------------------------
+	//
+	// Utilities
+	//
+	// ------------------------------------------------------------
+	// ------------------------------------------------------------
 
 	// ------------------------------------------------------------
 	// Takes in icon code from API and sets different images to code

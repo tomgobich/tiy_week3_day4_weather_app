@@ -8,7 +8,36 @@ html, body {
 body {
   font-family: 'Titillium Web', sans-serif;
   background-color: #323133;
-  color: #333; }
+  color: #333;
+  background: linear-gradient(to left, #6a50a7, #3bafda, #37bc9b);
+  background-size: 600% 600%;
+  -webkit-animation: bgBlend 30s ease infinite;
+  -moz-animation: bgBlend 30s ease infinite;
+  animation: bgBlend 30s ease infinite; }
+
+@-webkit-keyframes bgBlend {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 50%; }
+  100% {
+    background-position: 0% 50%; } }
+
+@-moz-keyframes bgBlend {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 50%; }
+  100% {
+    background-position: 0% 50%; } }
+
+@keyframes bgBlend {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 50%; }
+  100% {
+    background-position: 0% 50%; } }
 
 p,
 h1,
@@ -25,19 +54,45 @@ img {
 button {
   outline: none; }
 
+.forecast-unit {
+  color: #d3dce9;
+  background-color: #3f3d40;
+  background-image: linear-gradient(to right, #5D9CEC 50%, transparent 50%);
+  background-size: 105%;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  transition: all 1s ease;
+  position: absolute;
+  top: 0;
+  right: 0; }
+  .forecast-unit.metric {
+    background-position: -52%;
+    background-size: 200%;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    transition: all 1s ease; }
+  .forecast-unit .unit {
+    padding: 6px 8px;
+    float: left; }
+    .forecast-unit .unit:hover {
+      cursor: pointer; }
+    .forecast-unit .unit .type {
+      font-size: 0.8em;
+      margin: 0; }
+
 .forecast-title {
   width: 100%;
   color: #F5F7FA;
-  margin: 10px -15px 0; }
+  margin: 20px -15px 0; }
   .forecast-title .title {
-    font-size: 3.2em;
+    font-size: 1.6em;
     text-align: left;
     text-transform: uppercase;
-    word-spacing: 100vw;
     margin: 0; }
     .forecast-title .title form {
       width: calc(100% + 30px);
-      display: inline-block; }
+      font-size: 2em;
+      display: block; }
     .forecast-title .title #locationInput {
       width: 100%;
       text-align: left;
@@ -48,93 +103,95 @@ button {
       outline: none;
       border-radius: 0px; }
 
-.forecast-5-day {
+.forecast {
   background-color: rgba(245, 247, 250, 0.4);
   text-align: center;
   padding: 20px;
   border: 3px solid #F5F7FA;
   box-shadow: 1px 1px 3px rgba(50, 49, 51, 0.2);
   margin-top: 20px; }
-  .forecast-5-day .forecast-content {
+  .forecast .forecast-week {
     box-shadow: 1px 1px 3px rgba(50, 49, 51, 0.2); }
-    .forecast-5-day .forecast-content .forecast-day {
+    .forecast .forecast-week .forecast-day {
       width: 14.28571%;
       background-color: #F5F7FA;
       padding: 10px;
       border-right: 1px solid rgba(211, 220, 233, 0.4);
       float: left; }
-      .forecast-5-day .forecast-content .forecast-day:last-child {
+      .forecast .forecast-week .forecast-day:last-child {
         border-right: 1px solid transparent; }
-      .forecast-5-day .forecast-content .forecast-day:after {
+      .forecast .forecast-week .forecast-day:after {
         content: "";
         display: table;
         clear: both; }
-      .forecast-5-day .forecast-content .forecast-day .day {
+      .forecast .forecast-week .forecast-day .day {
         font-size: 1.4em;
         text-transform: uppercase;
         margin: 0; }
-      .forecast-5-day .forecast-content .forecast-day .condition {
+      .forecast .forecast-week .forecast-day .condition {
         text-transform: capitalize;
         padding: 0; }
-      .forecast-5-day .forecast-content .forecast-day .forecast-icon {
+      .forecast .forecast-week .forecast-day .forecast-icon {
         max-width: 50%;
         display: block;
         padding: 20px 0 30px;
         margin: 0 auto; }
-      .forecast-5-day .forecast-content .forecast-day .temps {
-        padding: 2px;
+      .forecast .forecast-week .forecast-day .temps {
+        padding: 0 2px;
         background-color: #d3dce9;
         box-shadow: 0px 0px 3px rgba(50, 49, 51, 0.1);
-        background-image: linear-gradient(to right, rgba(93, 156, 236, 0.3), rgba(218, 68, 83, 0.3)); }
-        .forecast-5-day .forecast-content .forecast-day .temps .temp {
+        background-image: linear-gradient(to right, rgba(93, 156, 236, 0.4) 50%, rgba(218, 68, 83, 0.4) 50%); }
+        .forecast .forecast-week .forecast-day .temps .temp {
           width: 50%;
           background-color: #F5F7FA;
           font-weight: 600;
           padding: 10px 0;
           margin: 0; }
-          .forecast-5-day .forecast-content .forecast-day .temps .temp.high {
+          .forecast .forecast-week .forecast-day .temps .temp.high {
+            background-color: #fefbfb;
             color: #DA4453;
             float: right; }
-          .forecast-5-day .forecast-content .forecast-day .temps .temp.low {
+          .forecast .forecast-week .forecast-day .temps .temp.low {
+            background-color: #f4f8fe;
             color: #5D9CEC;
             float: left; }
-        .forecast-5-day .forecast-content .forecast-day .temps:after {
+        .forecast .forecast-week .forecast-day .temps:after {
           content: "";
           display: table;
           clear: both; }
 
 @media screen and (max-width: 992px) {
-  .forecast-5-day {
+  .forecast {
     font-size: 0.8em;
     padding: 10px; }
   .forecast-title .title {
-    font-size: 1.6em; } }
+    font-size: 1em; } }
 
 @media screen and (max-width: 700px) {
-  .forecast-5-day .forecast-content .forecast-day {
+  .forecast .forecast-week .forecast-day {
     width: 100%;
     text-align: left;
     border-right: none;
     border-bottom: 1px solid rgba(211, 220, 233, 0.4);
     position: relative; }
-    .forecast-5-day .forecast-content .forecast-day:last-child {
+    .forecast .forecast-week .forecast-day:last-child {
       border-bottom: none; }
-    .forecast-5-day .forecast-content .forecast-day .details {
+    .forecast .forecast-week .forecast-day .details {
       width: 30%;
       float: left;
       position: absolute;
       left: 70px; }
-      .forecast-5-day .forecast-content .forecast-day .details .condition {
+      .forecast .forecast-week .forecast-day .details .condition {
         padding: 0;
         margin: 0; }
-    .forecast-5-day .forecast-content .forecast-day .forecast-icon {
+    .forecast .forecast-week .forecast-day .forecast-icon {
       max-width: 30px;
       float: left;
       display: inline-block;
       padding: 4px 0 0 0;
       position: absolute;
       left: 15px; }
-    .forecast-5-day .forecast-content .forecast-day .temps {
+    .forecast .forecast-week .forecast-day .temps {
       width: 65px;
       text-align: center;
       float: right;
