@@ -56,13 +56,13 @@ button {
 
 .forecast-unit {
   color: #d3dce9;
-  background-color: rgba(50, 49, 51, 0.2);
-  background-image: linear-gradient(to right, #5D9CEC 50%, transparent 50%);
+  background-color: rgba(211, 220, 233, 0.2);
+  background-image: linear-gradient(to right, rgba(93, 156, 236, 0.8) 50%, transparent 50%);
   background-size: 105%;
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   transition: all 1s ease;
-  border: 2px solid #d3dce9;
+  box-shadow: 1px 1px 3px rgba(50, 49, 51, 0.2);
   border-top: none;
   position: absolute;
   top: 0;
@@ -94,7 +94,8 @@ button {
     .forecast-title .title form {
       width: calc(100% + 30px);
       font-size: 2em;
-      display: block; }
+      display: block;
+      padding-top: 5px; }
     .forecast-title .title #locationInput {
       width: 100%;
       text-align: left;
@@ -103,7 +104,8 @@ button {
       padding-left: 10px;
       background-color: rgba(211, 220, 233, 0.2);
       outline: none;
-      border-radius: 0px; }
+      border-radius: 0px;
+      box-shadow: 1px 1px 3px rgba(50, 49, 51, 0.2); }
 
 .forecast {
   background-color: rgba(245, 247, 250, 0.4);

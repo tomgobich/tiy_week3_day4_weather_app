@@ -86,13 +86,13 @@ button {
 // --------------------------------------------------
 .forecast-unit {
 	color: $color-dark-white;
-	background-color: rgba($color-background, .2);
-	background-image:linear-gradient(to right, $color-low 50%, transparent 50%);
+	background-color: rgba($color-dark-white, .2);
+	background-image:linear-gradient(to right, rgba($color-low, .8) 50%, transparent 50%);
 	background-size: 105%;
 	-webkit-transition: all 1s ease;
 	   -moz-transition: all 1s ease;
 		    transition: all 1s ease;
-	border: 2px solid $color-dark-white;
+	@include boxShadow();
 	border-top: none;
 	position: absolute;
 	top: 0;
@@ -141,6 +141,7 @@ button {
 			width: calc(100% + 30px);
 			font-size: 2em;
 			display: block;
+			padding-top: 5px;
 		}
 
 		#locationInput {
@@ -152,6 +153,7 @@ button {
 			background-color: rgba($color-dark-white, .2);
 			outline: none;
 			border-radius: 0px;
+			@include boxShadow();
 		}
 	}
 }
