@@ -22,28 +22,21 @@
 	<div class="container-fluid weather-fluid">
 		<div class="container weather">
 			<div class="row">
+				<div class="col-xs-12">
+					<div class="forecast-title">
+						<h2 class="title">
+							Weekly Forecast for 
+							<form id="locationForm">
+								<input id="locationInput" type="text" name="location" placeholder="Cincinnati" autofocus="autofocus">
+							</form>
+						</h2>
+					</div>
+				</div>
 				<div class="col-xs-12 forecast-5-day">
 					<div class="forecast-content">
-						<div class="forecast-title">
-							<h2 class="title">
-								Weekly Forecast for 
-								<form id="locationForm">
-									<input id="locationInput" type="text" name="location">
-								</form>
-							</h2>
-						</div>
 						<div id="forecastData">
 							<!-- 
-							Content to dynamically insert
-
-							<div class="forecast-day">
-								<h3 class="day">FRIDAY</h3>
-								<p class="condition">Partly Cloudy</p>
-								<img class="forecast-icon" src="http://openweathermap.org/img/w/10d.png" alt="condition...">
-								<p class="temp low">44&deg;</p>
-								<p class="temp high">66&deg;</p>
-							</div> 
-							
+								Weekly Forecast Goes Here
 							-->
 						</div>
 					</div>

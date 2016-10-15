@@ -44,12 +44,14 @@ $(document).ready(function()
 
 	function getForecastFromAPI(location)
 	{
+		var $locationInput = $('#locationInput');
+
+		$locationInput.val(location).focus();
+
 		if(location === undefined || location.trim() === "")
 		{
 			location = 'Cincinnati';
 		}
-
-		$('#locationInput').val(location).focus();
 
 		$.ajax({
 			url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=imperial&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
