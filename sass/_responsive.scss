@@ -35,7 +35,7 @@
 					width: 30%;
 					float: left;
 					position: absolute;
-					left: 70px;
+					left: 60px;
 
 					.condition {
 						padding: 0;
@@ -47,13 +47,53 @@
 					max-width: 30px;
 					float: left;
 					display: inline-block;
-					padding: 4px 0 0 0;
+					padding: 3px 0 0 0;
 					position: absolute;
 					left: 15px;
 				}
 
 				.temps {
 					width: 100px;
+					text-align: center;
+					float: right;
+					box-shadow: none;
+				}
+			}
+		}
+	}
+
+}
+
+@media screen and (max-width: 350px) {
+
+	.forecast-title {
+
+		.title {
+			font-size: 0.8em;
+		}
+	}
+
+	.forecast {
+		padding: 5px;
+
+		.forecast-week {
+
+			.forecast-day {
+
+				.details {
+					width: 30%;
+					float: left;
+					position: absolute;
+					left: 60px;
+
+					.day {
+						font-size: 1.2em;
+						padding-top: 2px;
+					}
+				}
+
+				.temps {
+					width: 85px;
 					text-align: center;
 					float: right;
 					box-shadow: none;

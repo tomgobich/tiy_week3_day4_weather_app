@@ -54,6 +54,10 @@ img {
 button {
   outline: none; }
 
+.forecast,
+.location {
+  min-width: 290px; }
+
 .forecast-unit {
   color: #d3dce9;
   background-color: rgba(211, 220, 233, 0.2);
@@ -66,7 +70,7 @@ button {
   border-top: none;
   position: absolute;
   top: 0;
-  right: 0; }
+  right: 15px; }
   .forecast-unit.metric {
     background-position: -52%;
     background-size: 200%;
@@ -85,14 +89,14 @@ button {
 .forecast-title {
   width: 100%;
   color: #F5F7FA;
-  margin: 20px -15px 0; }
+  margin: 20px 0 0; }
   .forecast-title .title {
     font-size: 1.6em;
     text-align: left;
     text-transform: uppercase;
     margin: 0; }
     .forecast-title .title form {
-      width: calc(100% + 30px);
+      width: 100%;
       font-size: 2em;
       display: block;
       padding-top: 5px; }
@@ -114,6 +118,10 @@ button {
   border: 3px solid #F5F7FA;
   box-shadow: 1px 1px 3px rgba(50, 49, 51, 0.2);
   margin-top: 20px; }
+  .forecast:after {
+    content: "";
+    display: table;
+    clear: both; }
   .forecast .forecast-week {
     box-shadow: 1px 1px 3px rgba(50, 49, 51, 0.2); }
     .forecast .forecast-week .forecast-day {
@@ -124,21 +132,19 @@ button {
       float: left; }
       .forecast .forecast-week .forecast-day:last-child {
         border-right: 1px solid transparent; }
-      .forecast .forecast-week .forecast-day:after {
-        content: "";
-        display: table;
-        clear: both; }
       .forecast .forecast-week .forecast-day .day {
         font-size: 1.4em;
         text-transform: uppercase;
         margin: 0; }
       .forecast .forecast-week .forecast-day .condition {
+        min-height: 30px;
+        font-size: 0.8em;
         text-transform: capitalize;
         padding: 0; }
       .forecast .forecast-week .forecast-day .forecast-icon {
         max-width: 50%;
         display: block;
-        padding: 20px 0 30px;
+        padding: 16px 0 44px;
         margin: 0 auto; }
       .forecast .forecast-week .forecast-day .temps {
         padding: 0 2px;
@@ -188,7 +194,7 @@ button {
       width: 30%;
       float: left;
       position: absolute;
-      left: 70px; }
+      left: 60px; }
       .forecast .forecast-week .forecast-day .details .condition {
         padding: 0;
         margin: 0; }
@@ -196,11 +202,30 @@ button {
       max-width: 30px;
       float: left;
       display: inline-block;
-      padding: 4px 0 0 0;
+      padding: 3px 0 0 0;
       position: absolute;
       left: 15px; }
     .forecast .forecast-week .forecast-day .temps {
       width: 100px;
+      text-align: center;
+      float: right;
+      box-shadow: none; } }
+
+@media screen and (max-width: 350px) {
+  .forecast-title .title {
+    font-size: 0.8em; }
+  .forecast {
+    padding: 5px; }
+    .forecast .forecast-week .forecast-day .details {
+      width: 30%;
+      float: left;
+      position: absolute;
+      left: 60px; }
+      .forecast .forecast-week .forecast-day .details .day {
+        font-size: 1.2em;
+        padding-top: 2px; }
+    .forecast .forecast-week .forecast-day .temps {
+      width: 85px;
       text-align: center;
       float: right;
       box-shadow: none; } }
