@@ -5,14 +5,22 @@ $(document).ready(function()
 	var forecastUnit 	= JSON.parse(localStorage.getItem('unit'));
 	var location 		= JSON.parse(localStorage.getItem('location'));
 
+	console.log(forecastUnit);
 
 	// DOM selectors
 	var $locationInput 	= $('#locationInput');
 	var $forecastData 	= $('#forecastData');
 	var $forecastUnit 	= $('#forecastUnit');
 
+	// Is forecast unit undefined or null?
+	if(forecastUnit === undefined || forecastUnit === null)
+	{
+		// Yes, default to imperial
+		forecastUnit = "imperial";
+	}
+
 	// Is location input defined?
-	if(location !== undefined)
+	if(location !== undefined || location !== null)
 	{
 		// Yes, set value to location input
 		$locationInput.val(location);
@@ -107,7 +115,7 @@ $(document).ready(function()
 		$locationInput.focus();
 
 		// Set defaults if anything isn't set or loaded
-		validateInputs();
+		validateInput();
 
 		// Visually update forecast unit for user
 		setForecastUnit();
@@ -300,16 +308,9 @@ $(document).ready(function()
 	// ------------------------------------------------------------
 	// Validate location form input & forecast unit toggle
 	// ------------------------------------------------------------
-	function validateInputs()
+	function validateInput()
 	{
 		var locationFromForm = $locationInput.val();
-
-		// Is forecastUnit undefined?
-		if(forecastUnit === undefined)
-		{
-			// Yes, use imperial
-			forecastUnit = "imperial";
-		}
 
 		// Is the location undefined or empty?
 		if(locationFromForm === undefined || locationFromForm.trim() === "")
