@@ -4,6 +4,8 @@
 
 The goal of this assignment was to create a weather application that shows the weekly forecast for any area the user inputs using the [OpenWeatherMap API](http://openweathermap.org/api).
 
+[View Live Preview](https://tomgobich.github.io/tiy_week3_day4_weather_app/)
+
 ### This application features the following:
 
 - Animated background gradient to add a dynamic aspect to the design.
