@@ -1,16 +1,22 @@
 $(document).ready(function()
 {
 	// Weekly forecast array
-	var weeklyForecast = [];
-	var forecastUnit = JSON.parse(localStorage.getItem('unit'));
-	var location = JSON.parse(localStorage.getItem('location'));
-
+	var weeklyForecast 	= [];
+	var forecastUnit 	= JSON.parse(localStorage.getItem('unit'));
+	var location 		= JSON.parse(localStorage.getItem('location'));
 
 
 	// DOM selectors
 	var $locationInput 	= $('#locationInput');
 	var $forecastData 	= $('#forecastData');
 	var $forecastUnit 	= $('#forecastUnit');
+
+	// Is location input defined?
+	if(location !== undefined)
+	{
+		// Yes, set value to location input
+		$locationInput.val(location);
+	}
 
 
 
@@ -19,11 +25,11 @@ $(document).ready(function()
 	// ------------------------------------------------------------
 	function Forecast(dayText, tempHigh, tempLow, condition, iconCode)
 	{
-		this.day = dayText;
-		this.tempHigh = Math.round(tempHigh);
-		this.tempLow = Math.round(tempLow);
-		this.condition = condition;
-		this.iconCode = iconCode;
+		this.day 		= dayText;
+		this.tempHigh 	= Math.round(tempHigh);
+		this.tempLow 	= Math.round(tempLow);
+		this.condition 	= condition;
+		this.iconCode 	= iconCode;
 
 		// ------------------------------------------------------------
 		// Prepares link to icon file
@@ -100,24 +106,23 @@ $(document).ready(function()
 		// Set focus to location input
 		$locationInput.focus();
 
-		// Set defaults, and alerts if anything is wrong
-		if(validateInputs())
-		{
-			// Visually update forecast unit for user
-			setForecastUnit();
+		// Set defaults if anything isn't set or loaded
+		validateInputs();
 
-			// Set new location from input
-			location = $locationInput.val();
+		// Visually update forecast unit for user
+		setForecastUnit();
 
-			// AJAX call to openweatherdata api
-			$.ajax({
-				url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=${forecastUnit}&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
-				method: 'GET',
-				success: function(data) { prepareWeeklyForecast(data); },
-				error: function(err) { console.log("Error! Message: " + e.responseText); },
-				complete: function() { console.log("All done!"); }
-			})
-		}
+		// Set new location from input
+		location = $locationInput.val();
+
+		// AJAX call to openweatherdata api
+		$.ajax({
+			url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=${forecastUnit}&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
+			method: 'GET',
+			success: function(data) { prepareWeeklyForecast(data); },
+			error: function(err) { console.log("Error! Message: " + e.responseText); },
+			complete: function() { console.log("All done!"); }
+		})
 	}
 
 
@@ -307,27 +312,12 @@ $(document).ready(function()
 		}
 
 		// Is the location undefined or empty?
-		if(locationFromForm === undefined && location === undefined)
+		if(locationFromForm === undefined || locationFromForm.trim() === "")
 		{
 			// Use Cincinnati as default 
-			location = 'Cincinnati';
-		}
-
-		// Is there a location to lookup?
-		if(locationFromForm.trim() === "")
-		{
-			// No, default back to previous location
+			location = 'Cincinnati, US';
 			$locationInput.val(location);
-
-			// Alert the user to try again
-			alert('Please input a location to get the weekly forecast!');
-
-			// Return false to stop the presses
-			return false;
 		}
-
-		// Return true to continue onward
-		return true;
 	}
 
 
