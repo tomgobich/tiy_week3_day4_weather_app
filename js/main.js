@@ -5,8 +5,6 @@ $(document).ready(function()
 	var forecastUnit 	= JSON.parse(localStorage.getItem('unit'));
 	var location 		= JSON.parse(localStorage.getItem('location'));
 
-	console.log(forecastUnit);
-
 	// DOM selectors
 	var $locationInput 	= $('#locationInput');
 	var $forecastData 	= $('#forecastData');
