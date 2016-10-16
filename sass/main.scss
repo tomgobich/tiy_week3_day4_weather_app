@@ -264,6 +264,35 @@ button {
 
 
 // --------------------------------------------------
+// Footer
+// --------------------------------------------------
+footer {
+	font-size: 0.8em;
+	text-align: center;
+	padding-top: 40px;
+
+	a {
+		color: $color-dark-white;
+		background-image: linear-gradient(to right, $color-low 50%, transparent 50%);
+		background-repeat: no-repeat;
+		background-size: 200%;
+		background-position: 101% 0%;
+		padding: 10px;
+		-webkit-transition: all .5s;
+		   -moz-transition: all .5s;
+			    transition: all .5s;
+
+		&:hover {
+			color: $color-white;
+			text-decoration: none;
+			background-position: 0%;			
+		}
+	}
+}
+
+
+
+// --------------------------------------------------
 // Responsive Styles
 // --------------------------------------------------
 @import '_responsive.scss';

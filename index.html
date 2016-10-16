@@ -19,10 +19,12 @@
 </head>
 <body>
 
+	<!-- Container -->
 	<div class="container weather">
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="location">
+					<!-- Forecast Unit Toggle -->
 					<div id="forecastUnit" class="forecast-unit">
 						<div class="unit imperial">
 							<h3 class="type">&deg;F</h3>
@@ -31,17 +33,20 @@
 							<h3 class="type">&deg;C</h3>
 						</div>
 					</div>
+					<!-- Title -->
 					<div class="forecast-title">
 						<h2 class="title">
 							Weekly Forecast for 
+							<!-- Location Input Form -->
 							<form id="locationForm">
-								<input id="locationInput" type="text" name="location" placeholder="Cincinnati" autofocus="autofocus">
+								<input id="locationInput" type="text" name="location" value="Cincinnati, US" autofocus="autofocus">
 							</form>
 						</h2>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-12">
+				<!-- Weekly Forecast -->
 				<div class="forecast">
 					<div class="forecast-week">
 						<div id="forecastData">
@@ -53,7 +58,14 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<!-- Footer / Resource Credits -->
+			<footer>
+				<p><a href="https://github.com/tomgobich/tiy_week3_day4_weather_app/blob/master/README.md#resources-used" target="_blank">View Resource Credits</a></p>
+			</footer>
+		</div>
 	</div>
+	<!-- /.container -->
 
 	<!-- JQuery -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

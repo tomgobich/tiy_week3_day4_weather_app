@@ -3,6 +3,7 @@ $(document).ready(function()
 	// Weekly forecast array
 	var weeklyForecast = [];
 	var forecastUnit = JSON.parse(localStorage.getItem('unit'));
+	var location = JSON.parse(localStorage.getItem('location'));
 
 
 
@@ -65,7 +66,7 @@ $(document).ready(function()
 		e.preventDefault();
 
 		// Get forecast data from openweathermap API using location from user input
-		getForecastFromAPI($locationInput.val());
+		getForecastFromAPI();
 	});
 
 
@@ -94,36 +95,29 @@ $(document).ready(function()
 	// ------------------------------------------------------------
 	// Makes AJAX call to openweathermap API
 	// ------------------------------------------------------------
-	function getForecastFromAPI(location)
+	function getForecastFromAPI()
 	{
 		// Set focus to location input
 		$locationInput.focus();
 
-		// Is the location undefined or empty?
-		if(location === undefined || location.trim() === "")
+		// Set defaults, and alerts if anything is wrong
+		if(validateInputs())
 		{
-			// Use Cincinnati as default 
-			location = 'Cincinnati';
+			// Visually update forecast unit for user
+			setForecastUnit();
+
+			// Set new location from input
+			location = $locationInput.val();
+
+			// AJAX call to openweatherdata api
+			$.ajax({
+				url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=${forecastUnit}&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
+				method: 'GET',
+				success: function(data) { prepareWeeklyForecast(data); },
+				error: function(err) { console.log("Error! Message: " + e.responseText); },
+				complete: function() { console.log("All done!"); }
+			})
 		}
-
-		// Is forecastUnit undefined?
-		if(forecastUnit === undefined)
-		{
-			// Yes, use imperial
-			forecastUnit = "imperial";
-		}
-
-		// Visually update forecast unit for user
-		setForecastUnit();
-
-		// AJAX call to openweatherdata api
-		$.ajax({
-			url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=${forecastUnit}&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
-			method: 'GET',
-			success: function(data) { prepareWeeklyForecast(data); },
-			error: function(err) { console.log("Error! Message: " + e.responseText); },
-			complete: function() { console.log("All done!"); }
-		})
 	}
 
 
@@ -136,8 +130,14 @@ $(document).ready(function()
 		// Clear out weekly forecast array
 		weeklyForecast = [];
 
+		// Set global location
+		location = data.city.name + ", " + data.city.country;
+
 		// Display the city openweatherdata matched with user's input and add the country to the end
-		$('#locationInput').val(data.city.name + ", " + data.city.country);
+		$locationInput.val(location);
+
+		// Save location to local storage
+		localStorage.setItem('location', JSON.stringify(location));
 
 		// Loop through forecast days
 		data.list.forEach(function(day)
@@ -291,6 +291,46 @@ $(document).ready(function()
 	//
 	// ------------------------------------------------------------
 	// ------------------------------------------------------------
+
+	// ------------------------------------------------------------
+	// Validate location form input & forecast unit toggle
+	// ------------------------------------------------------------
+	function validateInputs()
+	{
+		var locationFromForm = $locationInput.val();
+
+		// Is forecastUnit undefined?
+		if(forecastUnit === undefined)
+		{
+			// Yes, use imperial
+			forecastUnit = "imperial";
+		}
+
+		// Is the location undefined or empty?
+		if(locationFromForm === undefined && location === undefined)
+		{
+			// Use Cincinnati as default 
+			location = 'Cincinnati';
+		}
+
+		// Is there a location to lookup?
+		if(locationFromForm.trim() === "")
+		{
+			// No, default back to previous location
+			$locationInput.val(location);
+
+			// Alert the user to try again
+			alert('Please input a location to get the weekly forecast!');
+
+			// Return false to stop the presses
+			return false;
+		}
+
+		// Return true to continue onward
+		return true;
+	}
+
+
 
 	// ------------------------------------------------------------
 	// Takes in icon code from API and sets different images to code
