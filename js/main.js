@@ -106,11 +106,14 @@ $(document).ready(function()
 			location = 'Cincinnati';
 		}
 
+		// Is forecastUnit undefined?
 		if(forecastUnit === undefined)
 		{
+			// Yes, use imperial
 			forecastUnit = "imperial";
 		}
 
+		// Visually update forecast unit for user
 		setForecastUnit();
 
 		// AJAX call to openweatherdata api
@@ -206,8 +209,6 @@ $(document).ready(function()
 	// ------------------------------------------------------------
 	function toggleForecastUnit()
 	{
-
-		console.log('before: ' + forecastUnit);
 		// Was unit of measurement imperial?
 		if(forecastUnit === "imperial")
 		{
@@ -219,15 +220,17 @@ $(document).ready(function()
 			// No, toggle over to imperial
 			forecastUnit = "imperial";
 		}
-		console.log('after: ' + forecastUnit);
 
 		// Save new unit in local storage
 		localStorage.setItem('unit', JSON.stringify(forecastUnit));
 
+		// Visually update forecast unit for user
 		setForecastUnit();
 
+		// Change units in weeklyForecast objects mathematically 
 		calculateUnits();
 
+		// Update visually displayed temperatures
 		displayWeeklyForecast();
 	}
 
@@ -238,22 +241,30 @@ $(document).ready(function()
 	// ------------------------------------------------------------
 	function setForecastUnit()
 	{
+		// Is the unit matric?
 		if(forecastUnit === "metric")
 		{
+			// Yes, add class metric to move toggle
 			$forecastUnit.addClass('metric');
 		}
 		else
 		{
+			// No, remove class metric to move toggle
 			$forecastUnit.removeClass('metric');
 		}
 	}
 
 
 
+	// ------------------------------------------------------------
+	// Calculate unit change from metric to imperial, vise versa
+	// ------------------------------------------------------------
 	function calculateUnits()
 	{
+		// Is user switching to metric?
 		if(forecastUnit === "metric")
 		{
+			// Yes, loop through weeklyForecast array & change highs/lows to metric
 			weeklyForecast.forEach(function(day)
 			{
 				day.tempHigh = Math.round((day.tempHigh - 32) / 1.8);
@@ -262,6 +273,7 @@ $(document).ready(function()
 		}
 		else
 		{
+			// No, loop through weeklyForecast array & change highs/lows to imperial
 			weeklyForecast.forEach(function(day)
 			{
 				day.tempHigh = Math.round((day.tempHigh * 1.8) + 32);
