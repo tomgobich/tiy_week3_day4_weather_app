@@ -183,7 +183,7 @@ footer {
     background-image: linear-gradient(to right, #5D9CEC 50%, transparent 50%);
     background-repeat: no-repeat;
     background-size: 200%;
-    background-position: 101% 0%;
+    background-position: 100% 0%;
     padding: 10px;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
