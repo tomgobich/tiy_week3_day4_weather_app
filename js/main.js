@@ -111,7 +111,7 @@ $(document).ready(function()
 
 			// AJAX call to openweatherdata api
 			$.ajax({
-				url: `https://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=${forecastUnit}&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
+				url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${location}&type=like&units=${forecastUnit}&cnt=7&APPID=ebf5e5843530b4f8cf4c0bd17b6b6048`,
 				method: 'GET',
 				success: function(data) { prepareWeeklyForecast(data); },
 				error: function(err) { console.log("Error! Message: " + e.responseText); },
